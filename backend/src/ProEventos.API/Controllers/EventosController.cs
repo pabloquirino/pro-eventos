@@ -10,10 +10,10 @@ namespace ProEventos.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EventoController : ControllerBase
+    public class EventosController : ControllerBase
     {
         private readonly DataContext context;
-        public EventoController(DataContext context) //"ASP.NET, me entregue um DataContext já configurado com o banco."
+        public EventosController(DataContext context) //"ASP.NET, me entregue um DataContext já configurado com o banco."
         {
             this.context = context;//"Aqui está."
             
