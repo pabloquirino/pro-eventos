@@ -1,7 +1,71 @@
-<h1>Eventos de components</h1>
+<h2>Eventos</h2>
+<hr />
 
-<div *ngFor="let e of eventos">
-    <p><b>Tema:</b>{{e.tema}}</p>
-    <p><b>Local:</b>{{e.local}}</p>
-    <hr>
-</div>
+<form class="form-inline">
+  <div class="form-group mb-2">
+    <label for="filtro">Filtro: </label>
+    <input 
+        type="text" 
+        class="form-control mr-2" 
+        placeholder="buscar"
+        name="filtro"
+        [(ngModel)]="filtroLista"
+    />
+    <button class="btn btn-outline-success">Buscar</button>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+        <th>
+            <button
+                type="button"
+                class="btn btn-outline-light btn-sm"
+                (click)="showAndHideImg()">
+                {{toggleImg ? 'Ocultar' : 'Exibir'}}
+            </button>
+        </th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="eventos && eventos.length; else noEvents">
+    <tr *ngFor="let e of eventosFiltrados">
+        <td>
+          <img 
+              [collapse]="!toggleImg"
+              [isAnimated]="true"
+              [src]="'assets/' + e.imagemUrl" 
+              alt="event image" 
+              [style.width.px]="widthImg"
+              [style.margin.px]="marginImg"
+          >
+        </td>
+      <td>{{ e.eventoId }}</td>
+      <td>{{ e.tema }}</td>
+      <td>{{ e.local }}</td>
+      <td>{{ e.dataEvento }}</td>
+      <td>{{ e.qtdPessoas }}</td>
+      <td>{{ e.lote }}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm mr-2">Editar</button>
+        <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+  <ng-template #noEvents>
+    <tfoot>
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4>Nenhum evento encontrado!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </ng-template>
+</table>
